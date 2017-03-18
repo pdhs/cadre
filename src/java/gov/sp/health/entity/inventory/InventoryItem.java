@@ -1,0 +1,25 @@
+/*
+ * Author : Dr. M H B Ariyaratne, MO(Health Information), email : buddhika.ari@gmail.com
+ * and open the template in the editor.
+ */
+package gov.sp.health.entity.inventory;
+
+import gov.sp.health.entity.Item;
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+
+/**
+ *
+ * @author Buddhika
+ */
+@Entity
+@Inheritance
+public class InventoryItem extends Item implements Serializable {
+
+    public InventoryItem() {
+    }
+
+    
+    
+}

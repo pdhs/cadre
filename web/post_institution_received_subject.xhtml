@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./resources/template/pdhs_template_1.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:pou="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+        <pou:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">
+            <f:facet name="start">
+                <h:graphicImage library="image" name="ajaxloading.gif" />
+            </f:facet>
+
+            <f:facet name="complete">
+                <h:outputText value="" />
+            </f:facet>
+        </pou:ajaxStatus>
+        <h:form>
+
+            <pou:growl id="g"></pou:growl>
+
+            <h:panelGrid columns="2" >
+
+                <h:outputLabel value="#{postLabels.date}"/>
+                <pou:calendar id="dtpFrom" pattern="dd MMMM yyyy" value="#{letterController.fromDate}" immediate="true">
+                </pou:calendar>
+
+                <h:outputLabel value="#{postLabels.subject}"/>
+                <h:selectOneListbox id="lstSub" value="#{letterController.subject}" size="1">
+                    <f:selectItems value="#{subjectController.items}" var="subj" itemValue="#{subj}" itemLabel="#{subj.name}"/>
+                </h:selectOneListbox>
+
+
+            </h:panelGrid>
+
+            <h:panelGrid columns="4">
+                <h:commandButton value="#{postLabels.displayAll}"/>
+                <h:commandButton value="#{postLabels.allprint}" type="button">
+                    <pou:printer target="tblItems"  />
+                </h:commandButton>
+                <h:commandButton value="#{postLabels.markAllAsPrinted}" type="button" action="#{letterController.markPrintInsSub}">
+                </h:commandButton>
+                <h:commandButton value="#{postLabels.printOnlyPreviouslyNotPrinterdOnes}" type="button">
+                    <pou:printer target="tblItemsToPrint"  />
+                </h:commandButton>
+
+                <h:commandLink id="clExcel">
+                    <pou:tooltip for="clExcel" >
+                        <h:outputLabel value="#{postLabels.exportAsExcel}" />
+                    </pou:tooltip>
+                    <h:graphicImage  library="image" name="excel.png" />
+                    <pou:dataExporter type="xls" target="tblItems" fileName="items" />
+                </h:commandLink>
+
+
+
+            </h:panelGrid>
+
+
+
+
+            <pou:dataTable id="tblItems"   var="demo" value="#{letterController.itemsInsSub}" selection="#{letterController.current}" emptyMessage="#{postLabels.noRecordsFound}" >
+                <f:facet name="header">
+                    <h:outputLabel rendered="#{!(letterController.subject==null)}" value="#{letterController.subject.name} - "/>
+                    <h:outputLabel rendered="#{(letterController.subject==null)}" value="#{letterController.toInstitution.name} - "/>
+                    <h:outputLabel value="#{letterController.fromDate }" >
+                        <f:convertDateTime pattern="dd MMMM yyyy"/>
+                    </h:outputLabel>
+                </f:facet>
+                <pou:column style="max-width:60px!important; text-wrap:normal; padding:1px; margin: 1px; ">
+                    <f:facet name="header">
+                        <h:outputLabel value="#{postLabels.date}" style="font-size: medium;"/>
+                    </f:facet>
+                    <h:outputText value="#{demo.lettterDate}" style="font-size: 10px;"  >
+                        <f:convertDateTime pattern="dd MM yy" />
+                    </h:outputText>  
+                </pou:column>                
+
+                <pou:column style="max-width:150px!important; text-wrap:normal; padding:1px; margin: 1px; ">
+                    <f:facet name="header" >
+                        <h:outputLabel value="#{postLabels.from}" style="font-size: medium;"/>
+                    </f:facet>
+                    <h:outputText value="#{demo.fromInstitution.name}" style="font-size: 10px;"/>  <br/>
+                    <h:outputText value="#{demo.fromPerson.name}" style="font-size: 10px;"/>  
+                </pou:column>  
+
+
+                <pou:column style="max-width:30px!important; text-wrap:normal; padding:1px; margin: 1px; ">
+                    <f:facet name="header">
+                        <h:outputLabel value="#{postLabels.registered}" style="font-size: medium;"/>
+                    </f:facet>
+                     <h:outputText  rendered="#{!demo.registered}"  value="N" style="font-size: 10px;"/>
+                    <h:outputText  rendered="#{demo.registered}"  value="Reg #{demo.code}" style="font-size: 10px;"/>                    
+                </pou:column>
+
+                <pou:column style="max-width:120px!important; text-wrap:normal; padding:1px; margin: 1px; ">
+                    <f:facet name="header">
+                        <h:outputLabel value="#{postLabels.number}" style="font-size: medium;"/>
+                    </f:facet>
+                    <h:outputText value="#{demo.name}" style="font-size: 10px;"/>  
+                </pou:column>
+
+
+                <pou:column style="max-width:250px!important; text-wrap:normal; padding:1px; margin: 1px; ">
+                    <f:facet name="header">
+                        <h:outputLabel value="#{postLabels.topic}" style="font-size: medium;"/>
+                    </f:facet>
+                    <h:outputText value="#{demo.description}" style="font-size: 10px;"/>  
+                </pou:column>
+
+                <pou:column style="max-width:40px; text-wrap:normal; padding:1px; margin: 1px; ">
+                    <f:facet name="header">
+                        <h:outputLabel value="#{postLabels.assignedTo}" style="font-size: medium;"/>
+                    </f:facet>
+                    <h:outputText value="#{demo.toPerson.givenName}" style="font-size: 10px;"/>  
+                </pou:column>  
+
+                <pou:column style="max-width:50px; text-wrap:normal; padding:1px; margin: 1px; ">
+                    <f:facet name="header">
+                        <h:outputLabel value="#{postLabels.signature}" style="font-size: medium;"/>
+                    </f:facet>
+                </pou:column>
+
+
+
+            </pou:dataTable>
+
+
+
+
+            <pou:dataTable  id="tblItemsToPrint"   var="demoP" value="#{letterController.itemsInsSubToPrint}" selection="#{letterController.current}" emptyMessage="#{postLabels.noRecordsFound}">
+                <f:facet name="header">
+                    <h:outputLabel rendered="#{!(letterController.subject==null)}" value="#{letterController.subject.name} - "/>
+                    <h:outputLabel rendered="#{(letterController.subject==null)}" value="#{letterController.toInstitution.name} - "/>
+                    <h:outputLabel value="#{letterController.fromDate }" >
+                        <f:convertDateTime pattern="dd MMMM yyyy"/>
+                    </h:outputLabel>
+                </f:facet>
+                <pou:column style="max-width:70px; text-wrap:normal; padding:1px; margin: 1px; ">
+                    <f:facet name="header">
+                        #{postLabels.letterDate}
+                    </f:facet>
+                    <h:outputText value="#{demoP.lettterDate}" >
+                        <f:convertDateTime pattern="dd MM yy" />
+                    </h:outputText>  
+                </pou:column>                
+
+                <pou:column style="max-width:150px; text-wrap:normal; padding:1px; margin: 1px; ">
+                    <f:facet name="header">
+                        #{postLabels.from}
+                    </f:facet>
+                    <h:outputText value="#{demoP.fromInstitution.name}" />  <br/>
+                    <h:outputText value="#{demoP.fromPerson.name}" />  
+                </pou:column>  
+
+
+                <pou:column style="max-width:50px; text-wrap:normal; padding:5px; margin: 5px; ">
+                    <f:facet name="header">
+                        #{postLabels.registered}
+                    </f:facet>
+                    <h:outputText value="#{ (demoP.registered) ? 'Regitered' : 'Normal' }"   /><br/>
+                    <h:outputText  rendered="#{demoP.registered}"  value="#{demoP.code}"/>                    
+                </pou:column>
+
+                <pou:column>
+                    <f:facet name="header">
+                        #{postLabels.number}
+                    </f:facet>
+                    <h:outputText value="#{demoP.name}" />  
+                </pou:column>
+
+
+                <pou:column>
+                    <f:facet name="header">
+                        #{postLabels.topic}
+                    </f:facet>
+                    <h:outputText value="#{demoP.description}" />  
+                </pou:column>
+
+                <pou:column>
+                    <f:facet name="header">
+                        #{postLabels.assignedTo}
+                    </f:facet>
+                    <h:outputText value="#{demoP.toPerson.givenName}" />  
+                </pou:column>  
+
+                <pou:column >
+                    <f:facet name="header">
+                        #{postLabels.signature}
+                    </f:facet>
+                </pou:column>
+
+            </pou:dataTable>
+
+
+
+        </h:form>
+
+
+    </ui:define>
+
+
+</ui:composition>

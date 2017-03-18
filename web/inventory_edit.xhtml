@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./resources/template/inventory_template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:define name="content">
+
+
+
+
+        <h:form >
+            <p:growl autoUpdate="true" />
+            <p:panel header="#{labels.EditMetadata}" >
+
+                <p:panelGrid columns="4">
+
+                    <p:panel header="#{labels.internalInstitutions}" >
+                        <p:panelGrid columns="1">
+                            <h:commandLink value="#{labels.institutionTypes}" action="institution_type"></h:commandLink>
+                            <h:commandLink value="#{labels.institutions}" action="institutions"></h:commandLink>
+                            <h:commandLink value="#{labels.units}" action="inventory_unit"></h:commandLink>
+                            <h:commandLink value="#{labels.locations}" action="inventory_location"></h:commandLink>
+                            <h:commandLink value="#{labels.persons}" action="person"></h:commandLink>
+                        </p:panelGrid>
+                    </p:panel>
+                    <p:panel header="#{labels.externalInstitutions}" >
+                        <p:panelGrid columns="1">
+                            <h:commandLink value="#{labels.suppliers}" action="inventory_supplier"></h:commandLink>
+                            <h:commandLink value="#{labels.manufacturers}" action="inventory_manufacturer"></h:commandLink>
+                            <h:commandLink value="#{labels.countries}" action="country"></h:commandLink>
+                        </p:panelGrid>
+                    </p:panel>
+                    <p:panel header="#{labels.inventoryItemDetails}" >
+                        <p:panelGrid columns="1">
+                            <h:commandLink value="#{labels.inventoryItemCategories}" action="inventory_item_category"></h:commandLink>
+                            <h:commandLink value="#{labels.makes}" action="inventory_make"></h:commandLink>
+                            <h:commandLink value="#{labels.modals}" action="inventory_modal"></h:commandLink>
+                            <h:commandLink value="#{labels.inventoryItem}" action="inventory_item"></h:commandLink>
+                            <h:commandLink value="#{labels.ItemsImportFromExcel}" action="inventory_import_items"></h:commandLink>
+                        </p:panelGrid>
+                    </p:panel>
+                    <p:panel header="#{labels.consumableDetails}" >
+                        <p:panelGrid columns="1">
+                            <h:commandLink value="#{labels.consumableItemCategories}" action="consumable_item_category"></h:commandLink>
+                            <h:commandLink value="#{labels.consumables}" action="consumable_item"></h:commandLink>
+                        </p:panelGrid>
+                    </p:panel>
+
+
+
+                </p:panelGrid>
+            </p:panel>
+
+
+        </h:form>
+
+
+
+    </ui:define>
+
+</ui:composition>

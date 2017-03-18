@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="pdhs.css"  />
+        <title>
+            <ui:insert  name="title">
+                #{labels.topic}
+            </ui:insert>
+        </title>
+    </h:head>
+
+    <h:body >
+        <f:view >
+            <h:outputStylesheet library="css" name="pdhs.css"  />
+            <table id="bodyTable" >
+                <tr id="topLine">
+                    <td>
+                    </td>
+                </tr>
+                <tr id="heading">
+                    <td  >
+                        <h:panelGroup >
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td colspan="5" style="text-align: center;" >
+                                        <h1><p:outputLabel value="#{labels.topic}" ></p:outputLabel></h1>
+                                    </td>
+                                </tr>
+                            </table>
+                        </h:panelGroup>
+
+                    </td>
+                </tr>
+
+                <tr id="menuRow">
+                    <td style="padding: 5px;">
+                        <h:panelGroup rendered="#{sessionController.logged}" >
+                            <h:form>
+                                <p:menubar style="width: 95%;">
+                                    <p:menuitem value="Home" action="/index" ></p:menuitem>
+                                    <p:submenu label="Cadre" >
+                                        <p:menuitem value="Cadre Norms" action="/cadre_norm" ></p:menuitem>
+                                        <p:menuitem value="Approved Cadre" action="/cadre_approved" ></p:menuitem>
+                                        <p:menuitem value="In-Positions" action="/cadre_for_institution" ></p:menuitem>
+                                        <p:menuitem value="Reports" action="/cadre_reports" ></p:menuitem>
+                                    </p:submenu>
+                                    <p:submenu label="Manage" >
+                                        <p:menuitem value="Institution Types" action="/institution_type" ></p:menuitem>
+                                        <p:menuitem value="Institutions" action="/institutions" ></p:menuitem>
+                                    </p:submenu>
+                                    <p:submenu label="User" >
+                                        <p:menuitem value="Change Passwords" action="/change_password" ></p:menuitem>
+                                    </p:submenu>
+                                </p:menubar>
+
+                            </h:form>
+                        </h:panelGroup>
+                    </td>
+                </tr>
+                <tr id="contentRow" style="height:450px;">
+                    <td id="contentCol" style="max-width:100%;">
+                        <p:panel rendered="#{sessionController.logged}" style="width: 100%!important;">
+                            <p:growl autoUpdate="true" ></p:growl>
+                            <ui:insert name="content" class="fullWidth"   >
+                            </ui:insert>
+                        </p:panel>
+
+                        <h:panelGroup rendered="#{!sessionController.logged}" style="width:100%!important;" >
+                            <ui:insert name="login" class="fullWidth"  >
+                                <h:form>
+                                    <p:panel header="#{labels.LogintotheApplication}" style="margin-top: 10%; margin-bottom: 10%; margin: auto; width: 400px;" >
+
+                                        <h:panelGrid columns="2" >
+                                            <h:outputLabel value="#{labels.UserName}" ></h:outputLabel>
+                                            <h:inputText value="#{connetcionController.userName}" />
+                                            <h:outputLabel value="#{labels.Password}" ></h:outputLabel>
+                                            <h:inputSecret value="#{connetcionController.passord}" />
+                                            <h:commandButton id="btnLogin" class="pdButton" type="submit" value="#{labels.Login}" action="#{connetcionController.loginAction()}"   />
+                                            <h:commandButton id="btnReg" class="pdButton" type="submit" value="#{labels.Register}" action="register"  />
+                                        </h:panelGrid>
+
+                                    </p:panel>
+                                </h:form>
+                            </ui:insert>
+                        </h:panelGroup>
+
+                    </td>
+                </tr>
+
+            </table>
+            <div style="bottom: 0px">
+                <h:form>
+                    <h:panelGroup rendered="#{sessionController.logged}" >
+                        <h:commandLink value="#{postLabels.logout}" action="#{connetcionController.logout()}"/>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{!sessionController.logged}" >
+                        <h:outputLabel value="&copy;&nbsp;PDHS, Southern Province &amp; PDHS, Western Province " id="copyRights" />
+                    </h:panelGroup>
+                    <h:commandLink value="&nbsp;|&nbsp;Sinhala" action="#{languageBean.languageToSinhala()}" rendered="#{!languageBean.inSinhala}" />
+                    <h:commandLink value="&nbsp;|&nbsp;Tamil" action="#{languageBean.languageToTamil()}" rendered="#{!languageBean.inTamil}" />
+                    <h:commandLink value="&nbsp;|&nbsp;English" action="#{languageBean.languageToEnglish()}" rendered="#{!languageBean.inEnglish}" />
+
+                </h:form>
+            </div>
+        </f:view>
+    </h:body>
+
+</html>

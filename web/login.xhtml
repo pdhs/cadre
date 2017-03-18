@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./resources/template/pdhs_template_1.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+    <ui:define name="content">
+
+        <h:form>
+            <h:commandLink action="areas" value="#{labels.area}" > </h:commandLink><br/>
+            <h:commandLink action="login" value="#{labels.loginPage}"> </h:commandLink>
+            <h:commandLink action="register" value="#{labels.registerPage}" > </h:commandLink>
+            <h:commandLink action="population" value="#{labels.populationPage}" > </h:commandLink> <br/>
+
+
+
+
+
+
+            <table cellpadding="2px" cellspacing="1px" bgcolor="#F4F5F7" width="400px" class="pdTable" align="center">
+                <tr>
+                    <td colspan="2" bgcolor="#0066FF">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="pdLabel">&nbsp;</td>
+                </tr>
+
+                <tr>
+                    <td align="center" colspan="2">
+
+                        <span class="pdHeading1">#{labels.loginToTheAdminPanel}</span>
+                    </td>
+                </tr>                  
+                <tr>
+                    <td colspan="2" class="pdLabel">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="pdLabel" align="right" width="40%">#{labels.UserName}:</td>
+                    <td align="left" width="60%"><h:inputText value="#{connetcionController.userName}"/></td>
+                </tr>
+                <tr>
+                    <td class="pdLabel" align="right">#{labels.Password}:</td>
+                    <td align="left"><h:inputSecret value="#{connetcionController.passord}"  /></td>
+                </tr>
+                <tr>
+
+                    <td align="left"><h:commandButton  class="pdButton" type="submit" value="#{labels.Register}" action="register" /> </td>
+                    <td align="left"><h:commandButton class="pdButton" type="submit" value="#{labels.Login}" action="#{connetcionController.loginAction()}"/></td>
+
+
+                </tr>                  
+                <tr>
+                    <td colspan="2" class="pdLabel">&nbsp;</td>
+                </tr>
+            </table>
+        </h:form>
+    </ui:define>
+
+
+</ui:composition>

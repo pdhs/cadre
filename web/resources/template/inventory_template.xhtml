@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="inventorydefault.css" />
+        <h:outputStylesheet library="css" name="inventoryLayout.css" />
+        
+    
+        <title>Facelets Template</title>
+        <style type="text/css">
+            .menubar{
+                background-color: salmon;
+                width: 100%;
+                margin: 2px;
+                padding: 1px;
+            }
+
+        </style>
+    </h:head>
+
+    <h:body >
+
+
+        <div id="itop" class="itop">
+            <ui:insert name="itop">
+                <h:graphicImage library="image" name="header01en.jpg" style="width: 100%" />
+                <h:form>
+                    <p:menubar styleClass="menubar">
+
+                        <p:menuitem value="Home" action="index.xhtml" ajax="false" />
+
+                        <p:submenu label="Admin" />
+                        <p:submenu label="Articles" />
+                        <p:submenu label="User" />
+                        <p:submenu label="About Us" />
+                        <p:submenu label="Logout" />
+                    </p:menubar>
+                </h:form>
+            </ui:insert>
+        </div>
+        <div >
+            <div id="ileft">
+                <ui:insert name="left">
+                    <h:form>
+                        <p:growl id="pmenu" autoUpdate="true"/>
+
+                        <p:panelMenu style="width: 250px" >
+                            <p:submenu label="Inventory Reports"  >
+                                <p:menuitem value="Main Inventory Report" action="inventory_report_institution_items" />
+                                <p:menuitem value="Sub Inventory Report" url="inventory_report_institution_items.xhtml"/>
+                                <p:menuitem value="Unit Stock Report" url="inventory_report_institution_items.xhtml"/>
+                                <p:menuitem value="Institution Inventory" url="inventory_report_institution_items.xhtml"/>
+                                <p:menuitem value="Institution Inventory Counts" url="inventory_report_institution_items_counts.xhtml"/>
+                                <p:menuitem value="Ledger" action="inventory_report_unit_ledger" />
+                                <p:menuitem value="Purchase Bill" url="inventory_report_unit_purchase.xhtml"/>
+                            </p:submenu>
+                            <p:submenu label="Consumable Reports">
+                                <p:menuitem value="Institution Stock Report" url="consumable_report_institution_stock.xhtml"/>
+                                <p:menuitem value="Unit Stock Report" url="consumable_report_unit_stock.xhtml"/>
+                            </p:submenu>
+                            <p:submenu label="Purchase">
+                                <p:menuitem value="Purchase" url="inventory_purchase.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="Issues">
+                                <p:menuitem value="Issues" url="inventory_issue.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="Receive Items">
+                                 <p:menuitem value="Received Item" url="inventory_institution_received_bills.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="Adjust">
+                                <p:menuitem value="Edit MetaData" url="inventory_adjust.xhtml"/>
+                            </p:submenu>
+                            <p:submenu label="Edit">
+                                <p:menuitem value="edit" url="inventory_edit.xhtml"/>
+                                
+                            </p:submenu>
+                        </p:panelMenu>
+                    </h:form>
+                </ui:insert>
+            </div>
+
+            <div id="icontent">
+                <ui:insert name="content">Content</ui:insert>
+
+            </div>
+        </div>
+    </h:body>
+
+</html>

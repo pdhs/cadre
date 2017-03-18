@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./resources/template/pdhs_template_1.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:define name="content">
+
+
+
+
+        <h:form >
+            <p:growl autoUpdate="true" />
+            <p:focus id="selectFocus" context="gpSelect" />
+            <p:focus id="detailFocus" context="gpDetail" />
+            <p:panel header="#{labels.manageHealthInstitutions}" >
+                <h:panelGrid id ="gpVeda" columns="2" >
+
+                    <h:panelGrid id="gpSelect" columns="1"  >
+                        <p:panel >
+
+                            <h:panelGrid id="gpSelectText" columns="2" >
+
+                                <h:outputText id="lblSelect" value="#{labels.healthInstitutions}" >
+                                </h:outputText>
+
+                                <h:inputText id="txtSelect" value="#{healthInstitutionController.selectText}"  style="min-width: 200px" >
+                                    <f:ajax  event="keyup" render="lstSelect gpDetail" execute="txtSelect" >
+                                    </f:ajax>
+                                </h:inputText>
+
+                                <h:outputLabel value="&#160;">
+                                </h:outputLabel>
+
+
+
+                                <h:selectOneListbox id="lstSelect"  size="10" value="#{healthInstitutionController.current}" style="min-width: 223px">
+                                    <f:selectItems value="#{healthInstitutionController.searchItems}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
+                                    <f:ajax render="gpDetail" execute="lstSelect" >
+                                    </f:ajax>
+                                </h:selectOneListbox>
+
+                            </h:panelGrid>
+
+                            <h:panelGrid id="gpSelectButtons" columns="3"  >
+                                <h:commandButton id="btnAdd" value="#{labels.add}" action="#{healthInstitutionController.prepareAdd}" styleClass="buttons" >
+                                    <f:ajax render="gpDetail detailFocus" execute="btnAdd" >
+                                    </f:ajax>
+                                </h:commandButton>
+
+                                <h:commandButton id="btnDelete" onclick="if (!confirm(#{labels.areYouSureYouWantToDelete}))
+                                            return false;" value="#{labels.delete}" action="#{healthInstitutionController.delete()}" styleClass="buttons">
+                                </h:commandButton>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:panelGrid  >
+
+                    <p:panel>
+                        <h:panelGrid id="gpDetail" columns="1">
+                            <h:panelGrid id="gpDetailText" columns="2">
+                                <h:outputText id="lblName" value="#{labels.healthInstitution}" ></h:outputText>
+                                <h:inputText id="txtName" value="#{healthInstitutionController.current.name}"  ></h:inputText>
+
+                                <h:outputText id="lblsName" value="#{labels.healthInstitutionS}" ></h:outputText>
+                                <h:inputText id="txtsName" value="#{healthInstitutionController.current.sname}"  ></h:inputText>
+
+                                <h:outputText id="lbltName" value="#{labels.healthInstitutionT}" ></h:outputText>
+                                <h:inputText id="txttName" value="#{healthInstitutionController.current.tname}"  ></h:inputText>
+
+                                
+                                
+                                <h:outputText  value="#{postLabels.code}" ></h:outputText>
+                                <h:inputText value="#{healthInstitutionController.current.code}"  ></h:inputText>
+
+                                
+       
+                                
+                                <h:outputText  value="#{postLabels.address}" ></h:outputText>
+                                <h:inputText  value="#{healthInstitutionController.current.address}"  ></h:inputText>
+
+                                <h:outputText  value="#{postLabels.telephone}" ></h:outputText>
+                                <h:inputText value="#{healthInstitutionController.current.telephone}"  ></h:inputText>
+
+                                <h:outputText  value="#{postLabels.mobile}" ></h:outputText>
+                                <h:inputText value="#{healthInstitutionController.current.mobile}"  ></h:inputText>
+
+                                <h:outputText  value="#{postLabels.telephone}" ></h:outputText>
+                                <h:inputText value="#{healthInstitutionController.current.telephone}"  ></h:inputText>
+
+                                <h:outputText  value="#{postLabels.fax}" ></h:outputText>
+                                <h:inputText value="#{healthInstitutionController.current.fax}"  ></h:inputText>
+
+                                <h:outputText  value="#{postLabels.email}" ></h:outputText>
+                                <h:inputText  value="#{healthInstitutionController.current.email}"  ></h:inputText>
+
+                                <h:outputText  value="#{postLabels.website}" ></h:outputText>
+                                <h:inputText value="#{healthInstitutionController.current.website}"  ></h:inputText>
+
+                                <h:outputText id="lblCat" value="#{labels.institutionType}" ></h:outputText>
+                                <h:selectOneListbox id="cmbCat1" value="#{healthInstitutionController.current.institutionType}"  size="1">
+                                    <f:selectItem itemLabel="#{labels.selectInstitutionType}"/>
+                                    <f:selectItems value="#{institutionTypeController.items}" />
+                                </h:selectOneListbox>
+
+                              <h:outputText id="lblMoh" value="#{labels.mohArea}" ></h:outputText>
+                                <h:selectOneListbox id="cmbMoh" value="#{healthInstitutionController.current.mohArea}"  size="1">
+                                    <f:selectItem itemLabel="#{labels.selectPHMArea}"/>
+                                    <f:selectItems value="#{mohController.items}" var="moh" itemLabel="#{moh.name}" itemValue="#{moh}" />
+                                    <f:ajax event="click" execute="cmbMoh" render="lblMohDpdhs lblMohProvince" />
+                                </h:selectOneListbox>
+
+                              <h:outputText  value="#{labels.dpdhsArea}" ></h:outputText>
+                              <h:outputText id="lblMohDpdhs" value="#{healthInstitutionController.current.mohArea.superArea.name}" ></h:outputText>
+                              
+                              <h:outputText  value="#{labels.province}" ></h:outputText>
+                              <h:outputText id="lblMohProvince" value="#{healthInstitutionController.current.mohArea.superArea.superArea.name}" ></h:outputText>
+                              
+                              <h:outputText id="lblOldCat" value="#{labels.oldCategory}" ></h:outputText>
+                              <h:selectOneListbox id="cmbOldCat" value="#{healthInstitutionController.current.oldCategory}"  size="1">
+                                  <f:selectItem itemLabel="#{labels.selectOldInstitutionType}"/>
+                                    <f:selectItems value="#{oldInstitutionCategoryController.items}" />
+                                </h:selectOneListbox>
+                              
+
+                            </h:panelGrid>
+                            <h:panelGrid id="gpDetailButtons" columns="2">
+                                <h:commandButton id="btnSave" value="#{labels.save}"  action="#{healthInstitutionController.saveSelected()}" styleClass="buttons">
+                                    <f:ajax render="btnAdd  btnDelete btnSave  txtSelect lstSelect gpDetail selectFocus"  execute="gpDetail" >
+                                    </f:ajax>
+                                </h:commandButton>
+
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+
+
+
+    </ui:define>
+
+</ui:composition>
